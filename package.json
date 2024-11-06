@@ -1,0 +1,28 @@
+{
+  "name": "furry-friend-back",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "node dist/app.js",
+    "dev": "tsc-watch --onSuccess \"node dist/app.js\"",
+    "postinstall": "prisma generate && prisma migrate deploy",
+    "clean": "rm -rf dist",
+  },
+  "keywords": [],
+  "author": "AlquimiaDigital",
+  "license": "ISC",
+  "description": "Furry Friend API",
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.9.0",
+    "express": "^4.21.1",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "dotenv": "^16.4.5",
+    "prisma": "^5.22.0"
+  }
+}
