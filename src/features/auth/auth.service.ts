@@ -8,17 +8,17 @@ export class AuthService{
     private userRepository: UserRepository;
 
     constructor(){
-        this.userRepository = new UserRepository(Prisma);
+        this.userRepository = new UserRepository();
     }
 
     async login(loginDto: LoginDTO){
         const user = await this.userRepository.findUserByEmail(loginDto.email);
         if(!user){
-            throw new HttpException(401, 'Credenciales inválidas');
+            throw new Error('Credenciales inválidas');
         }
-        const isValidPassword = await BcryptUtil.compare(loginDto.password,user.password);
+        const isValidPassword = await BcryptUtil.compare(loginDto.password,user.password!);
         if (!isValidPassword) {
-            throw new HttpException(401, 'Invalid credentials');
+            throw new Error('Invalid credentials');
         }
         const token = JWTUtil.generateToken({userId: user.id});
         return {

@@ -1,25 +1,28 @@
-import { PrismaClient } from "@prisma/client";
-import { AuthProvider } from "../../types";
+import prisma from "../../configs/database";
+import { Prisma } from '@prisma/client';
+import { AuthProvider, USER_ROLE } from "../../types";
 import { RegisterDTO } from "../auth/dtos/auth.dto";
 
 export class UserRepository{
-
-    constructor(private prisma: PrismaClient) {}
     
     async registerUser(data: RegisterDTO){
-        return this.prisma.user.create({
-            data,
+        return prisma.user.create({
+            data: {
+                ...data,
+                authProvider: (data.authProvider || AuthProvider.EMAIL) as AuthProvider,
+                role: (data.role || USER_ROLE.USER) as USER_ROLE,
+            },
         });
     }
     
     async findUserByEmail(email: string){
-        return this.prisma.user.findUnique({
+        return prisma.user.findUnique({
             where: {email},
         });
     }
 
     async findUserByProviderId(provider: AuthProvider, providerId: string) {
-        return this.prisma.user.findFirst({
+        return prisma.user.findFirst({
           where: {
             authProvider: provider,
             authProviderId: providerId,
@@ -27,8 +30,8 @@ export class UserRepository{
         });
     }
 
-    async updateUser(id: string, data: RegisterDTO) {
-        return this.prisma.user.update({
+    async updateUser(id: string, data: Prisma.UserUpdateInput) {
+        return prisma.user.update({
             where: {id},
             data,
         });

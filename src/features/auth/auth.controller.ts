@@ -34,7 +34,7 @@ export class AuthController {
         try{
             const loginDto: LoginDTO = req.body;
             const result = await this.authService.login(loginDto);
-            return successResponse({
+            successResponse({
                 data   : result,
                 message: "Login successfully",
                 res,

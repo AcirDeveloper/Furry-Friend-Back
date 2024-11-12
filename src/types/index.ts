@@ -1,12 +1,12 @@
 export enum USER_ROLE {
-    USER = 'User',
-    PREMIUM = 'Premium',
-    ADMIN = 'Admin',
+    USER = 'USER',
+    PREMIUM = 'PREMIUM',
+    ADMIN = 'ADMIN',
 }
 
 export enum AuthProvider {
-    EMAIL = 'Email',
-    GOOGLE = 'Google',
-    FACEBOOK = 'Facebook',
-    APPLE = 'Apple'
+    EMAIL = 'EMAIL',
+    GOOGLE = 'GOOGLE',
+    FACEBOOK = 'FACEBOOK',
+    APPLE = 'APPLE'
 }
