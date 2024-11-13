@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { errorResponse, successResponse } from "../../shared/utils/response.utils";
 import { AuthService } from "./auth.service";
-import { LoginDTO, RegisterDTO } from "./dtos/auth.dto";
+import { LoginDTO, RegisterDTO, SocialLoginDTO } from "./dtos/auth.dto";
 import { HttpCodes } from '../../shared/utils/httpCodes.utils';
 import { UserService } from '../users/user.service';
 
@@ -45,4 +45,15 @@ export class AuthController {
             errorResponse({ message: "Error login user", res, status: HttpCodes.BAD_REQUEST });
         }
     }
+
+    async socialLogin(req: Request, res: Response) {
+        try {
+          const data: SocialLoginDTO = req.body;
+          const result = await this.authService.socialLogin(data);
+          res.json(result);
+        } catch (error) {
+            console.error(error);
+            errorResponse({ message: "Error login user", res, status: HttpCodes.BAD_REQUEST });
+        }
+      }
 }
