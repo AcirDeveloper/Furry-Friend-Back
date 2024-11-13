@@ -7,6 +7,15 @@ export interface RegisterDTO {
     phoneNumber?: string;
     authProvider?: AuthProvider;
     role?: USER_ROLE;
+    authProviderId?: string;
+}
+
+export interface RegisterSocialUserDTO {
+    email: string;
+    name: string;
+    authProvider?: AuthProvider;
+    role?: USER_ROLE;
+    authProviderId?: string;
 }
   
 export interface LoginDTO {

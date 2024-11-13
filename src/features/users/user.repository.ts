@@ -1,11 +1,21 @@
 import prisma from "../../configs/database";
 import { Prisma } from '@prisma/client';
 import { AuthProvider, USER_ROLE } from "../../types";
-import { RegisterDTO } from "../auth/dtos/auth.dto";
+import { RegisterDTO, RegisterSocialUserDTO } from "../auth/dtos/auth.dto";
 
 export class UserRepository{
     
     async registerUser(data: RegisterDTO){
+        return prisma.user.create({
+            data: {
+                ...data,
+                authProvider: (data.authProvider || AuthProvider.EMAIL) as AuthProvider,
+                role: (data.role || USER_ROLE.USER) as USER_ROLE,
+            },
+        });
+    }
+
+    async registerSocialUser(data: RegisterSocialUserDTO){
         return prisma.user.create({
             data: {
                 ...data,
